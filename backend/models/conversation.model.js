@@ -15,6 +15,10 @@ const conversationSchema = new mongoose.Schema(
 				default: [],
 			},
 		],
+		archieve:{
+			type:Boolean,
+			default:false,
+		}
 	},
 	{ timestamps: true }
 );

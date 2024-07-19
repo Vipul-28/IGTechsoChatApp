@@ -12,3 +12,35 @@ export const getUsersForSidebar = async (req, res) => {
 		res.status(500).json({ error: "Internal server error" });
 	}
 };
+
+export const setUserAtArchieve = async (req, res) => {
+	try {
+		const { username,senderName } = req.body;
+		const user = await User.findOne({ username });
+		user.archieveUsers.push(senderName)
+		console.log(user)
+		await user.save();
+		res.status(200).json({
+			"message":`User with username ${senderName} Added into ArchieveChat`
+		});
+	} catch (error) {
+		res.status(500).json({ error: "Internal Server Error" });
+	}
+};
+
+
+export const DeleteUserAtArchieve = async (req, res) => {
+	try {
+		const { username,senderName } = req.body;
+		const user = await User.findOne({ username });
+		user.deletedUser.push(senderName)
+		console.log(user)
+		await user.save();
+
+		res.status(200).json({
+			"message":`User with username ${senderName} Added into ArchieveChat`
+		});
+	} catch (error) {
+		res.status(500).json({ error: "Internal Server Error" });
+	}
+};

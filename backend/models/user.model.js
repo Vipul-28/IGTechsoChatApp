@@ -25,6 +25,12 @@ const userSchema = new mongoose.Schema(
 			type: String,
 			default: "",
 		},
+		archieveUsers:[
+
+		],
+		deletedUser:[
+			
+		]
 		// createdAt, updatedAt => Member since <createdAt>
 	},
 	{ timestamps: true }
