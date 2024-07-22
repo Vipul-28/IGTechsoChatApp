@@ -21,13 +21,31 @@ export const setUserAtArchieve = async (req, res) => {
 		console.log(user)
 		await user.save();
 		res.status(200).json({
-			"message":`User with username ${senderName} Added into ArchieveChat`
+			user
 		});
 	} catch (error) {
 		res.status(500).json({ error: "Internal Server Error" });
 	}
 };
+export const unsetUserAtArchieve = async (req, res) => {
+	try {
+		const { username,senderName } = req.body;
+		const user = await User.findOne({ username });
 
+		let archieveUsers=user.archieveUsers.filter((el)=>{
+			console.log(senderName+" "+el)
+			return senderName!=el
+		})
+		console.log(archieveUsers)
+		user.archieveUsers=archieveUsers
+		await user.save();
+		res.status(200).json({
+			user
+		});
+	} catch (error) {
+		res.status(500).json({ error: "Internal Server Error" });
+	}
+};
 
 export const DeleteUserAtArchieve = async (req, res) => {
 	try {
@@ -38,7 +56,7 @@ export const DeleteUserAtArchieve = async (req, res) => {
 		await user.save();
 
 		res.status(200).json({
-			"message":`User with username ${senderName} Added into ArchieveChat`
+			user
 		});
 	} catch (error) {
 		res.status(500).json({ error: "Internal Server Error" });
